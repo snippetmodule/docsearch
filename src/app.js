@@ -1,10 +1,7 @@
 require('./lib/logger/log4j');
 module.exports = function (server) {
-    var path = 'api/tools';
-    //server.get(path + '/transCoord/:longitude/:latitude', location_service.transCoordHttp);
+    // crawler 爬虫
+    var path = 'api/docs/crawler/git';
+    server.get(path, require('./crawler/git').getList);
 
 };
-
-//require('./services/eventbus');
-//require('./services/crontab');
-
