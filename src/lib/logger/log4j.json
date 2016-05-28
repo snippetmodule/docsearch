@@ -1,0 +1,74 @@
+{
+  "customBaseDir": "logs/",
+  "customDefaultAtt": {
+    "type": "dateFile",
+    "absolute": true,
+    "alwaysIncludePattern": true
+  },
+  "appenders": [
+    {
+      "type": "console",
+      "category": "console"
+    },
+    {
+      "pattern": "debug/yyyyMMdd.log",
+      "category": "logDebug"
+    },
+    {
+      "pattern": "info/yyyyMMdd.log",
+      "category": "logInfo"
+    },
+    {
+      "pattern": "warn/yyyyMMdd.log",
+      "category": "logWarn"
+    },
+    {
+      "pattern": "err/yyyyMMdd.log",
+      "category": "logErr"
+    },
+    {
+      "category": "order",
+      "type": "dateFile",
+      "filename": "orders/",
+      "pattern":"yyyyMMdd.log",
+      "alwaysIncludePattern":true
+    },
+    {
+      "category": "orderConsole",
+      "type": "dateFile",
+      "filename": "orderConsole/",
+      "pattern":"yyyyMMdd.log",
+      "alwaysIncludePattern":true,
+      "layout": {
+        "type": "colored"
+      }
+    },
+    {
+      "category": "Console",
+      "type": "dateFile",
+      "filename": "console/",
+      "pattern":"yyyyMMdd.log",
+      "alwaysIncludePattern":true
+    },
+    {
+      "category": "sms",
+      "type": "dateFile",
+      "filename": "sms/",
+      "pattern":"yyyyMMdd.log",
+      "alwaysIncludePattern":true
+    },
+    {
+      "category": "push",
+      "type": "dateFile",
+      "filename": "push/",
+      "pattern":"yyyyMMdd.log",
+      "alwaysIncludePattern":true
+    }
+  ],
+  "levels": {
+    "logDebug": "DEBUG",
+    "logInfo": "DEBUG",
+    "logWarn": "DEBUG",
+    "logErr": "DEBUG"
+  }
+}
