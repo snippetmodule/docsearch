@@ -6,4 +6,8 @@
 node_modules/
 
 #log
+logs/
 *.log
+
+#alm
+.alm
