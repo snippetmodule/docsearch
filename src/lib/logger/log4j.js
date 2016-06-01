@@ -1,5 +1,5 @@
 var helper = {};
-exports.helper = helper;
+
 
 var log4js = require('log4js');
 var fs = require("fs");
@@ -109,3 +109,4 @@ function isAbsoluteDir(path) {
         return path[0] == "/";
     }
 }
+exports.helper = helper;

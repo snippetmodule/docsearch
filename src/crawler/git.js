@@ -2,26 +2,56 @@
  * Created by wfx on 16-5-28.
  */
 var HttpClient = require('../lib/httpClient');
-var Asyncjs = require('async');
+var async = require('async');
 var fs = require('fs');
+var cheerio = require('cheerio');
 
-var devdocs_io_git_http_get = function (url,jsonParams, callback) {
+var devdocs_io_git_http_get = function (url, jsonParams, callback) {
     var options = {
         headers: {
-            'Origin':'http://devdocs.io',
-            'Referer':url,
-            'Accept':'text/html',
-            'Host':'docs.devdocs.io'
+            'Origin': 'http://devdocs.io',
+            'Referer': url,
+            'Accept': 'text/html',
+            'Host': 'docs.devdocs.io'
         }
     };
-    HttpClient.get(url,jsonParams,options,callback);
+    HttpClient.get(url, jsonParams, options, callback);
 };
 exports.getList = function (req, res, next) {
-    Asyncjs.each(json.entries, function (entry, callback) {
+    fs.exists('docs/git-html-2.8.0/', function (exist) {
+        if (!exist) {
+            fs.mkdir('docs/git-html-2.8.0/');
+        }
+    });
+    fs.exists('docs/git-json-2.8.0/', function (exist) {
+        if (!exist) {
+            fs.mkdir('docs/git-json-2.8.0/');
+        }
+    });
+    async.each(json.entries, function (entry, callback) {
         devdocs_io_git_http_get('http://devdocs.io/git/' + entry.path + ".html", '', function (error, response, body) {
-            fs.writeFile('docs/git/' + entry.path + ".html", body, function (err) {
+            fs.writeFile('docs/git-html-2.8.0/' + entry.path + ".html", body, function (err) {
+                // callback(err);
+            });
+            var $ = cheerio.load(body);
+            var h2 = $('h2');
+            var length = h2.length;
+            var json = {};
+            var key;
+            var value;
+            for (var i = 0; i < length; i++) {
+                key = h2.html();
+                h2 = h2.next();
+                value = h2.html();
+                h2 = h2.next();
+                // console.log(entry.path +": " +length +" key :"+ key);
+                json[key] = value;
+            }
+
+            fs.writeFile('docs/git-json-2.8.0/' + entry.path + ".json", JSON.stringify(json), function (err) {
                 callback(err);
             });
+
         });
     }, function (err) {
         res.json(200, err);

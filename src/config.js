@@ -1,7 +1,7 @@
 /**
  * Created by beethoven on 6/6/15.
  */
-
+"use strict";
 exports.API_PORT = 8081;
 exports.API_DB = "mongodb://127.0.0.1:10086/ade";
 exports.API_DB_USER = "admin";

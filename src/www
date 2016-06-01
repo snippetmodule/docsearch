@@ -3,6 +3,7 @@
 /**
  * Module dependencies.
  */
+"use strict";
 var restify = require('restify');
 //var mongoose = require('./db/mongodb');
 var app = require('./app');
